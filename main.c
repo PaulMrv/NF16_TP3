@@ -1,38 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "TP3_A.h"
+#include "TP3_B.h"
+#define TAILLE_TABLEAU 10
 
 
 int main() {
-    //constint taille_mot=20;
 
-    t_mot chaine1;
+    int i;
+    t_liste tabLexique[TAILLE_TABLEAU];
+    for(i=0;i<TAILLE_TABLEAU;i++)
+        tabLexique[i]=NULL;
 
-
-    char* mot1=f_creer_mot();
-    f_convertir_minuscule(mot1);
-    printf("%s\n",mot1);
-
-    char* mot2=f_creer_mot();
-    f_convertir_minuscule(mot2);
-    printf("%s\n",mot2);
-
-    printf("%d\n",f_chainesup(mot1,mot2));
-
-
-    //char mot[TAILLE_MOT];
-
-    //mot="COUCOU\n";//demander au prof pk on en peut pas faire ça sans le char*
-    //mot[0]='C';
-    //mot[1]='\0';
-
-
-
-
-    /*
     char choixMenu = '0' ;
+    int choixLexique;
+
 
     do {
+        system("cls");
         printf("\n========================================");
         printf("\n  [1] Afficher un lexique");
         printf("\n  [2] Ajouter un mot dans un lexique");
@@ -47,26 +32,80 @@ int main() {
 
         switch (choixMenu) {
             case '1' :
-                printf("\n\n\t<Faire Afficher un lexique>\n\n");
+
+                printf("\n\n\t<Faire Afficher le lexique>\n\n");
+                do{
+                printf("Lexique numero:");
+                scanf("%d",&choixLexique);
+                rewind(stdin);
+                } while (!(choixLexique<=TAILLE_TABLEAU&&choixLexique>0));
+
+                afficherMots(tabLexique[choixLexique-1]);
+
+                getchar();
                 break;
             case '2' :
+
                 printf("\n\n\t<Faire Ajouter un mot dans un lexique>\n\n");
+                do{
+                printf("Dans le lexique numero:");
+                scanf("%d",&choixLexique);
+                rewind(stdin);
+                } while (!(choixLexique<=TAILLE_TABLEAU&&choixLexique>0));
+
+                do{
+                tabLexique[choixLexique-1]=ajouterMot(tabLexique[choixLexique-1],f_creer_mot());
+                } while(continuer());
+
+                getchar();
                 break;
+
             case '3' :
+
                 printf("\n\n\t<Faire Retirer un mot d'un lexique>\n\n");
+                do{
+                printf("Dans le lexique numero:");
+                scanf("%d",&choixLexique);
+                rewind(stdin);
+                } while (!(choixLexique<=TAILLE_TABLEAU&&choixLexique>0));
+
+                do{
+                tabLexique[choixLexique-1]=retirerMot(tabLexique[choixLexique-1],f_creer_mot());
+                } while(continuer());
+
+                getchar();
                 break;
+
             case '4' :
+
                 printf("\n\n\t<Faire Fusionner deux lexiques>\n\n");
+                getchar();
                 break;
+
             case '5' :
+
                 printf("\n\n\t<Faire Charger un fichier dans un lexique>\n\n");
+                do{
+                printf("Dans le lexique numero:");
+                scanf("%d",&choixLexique);
+                rewind(stdin);
+                } while (!(choixLexique<=TAILLE_TABLEAU&&choixLexique>0));
+
+
+                tabLexique[choixLexique-1]=importerFichier(tabLexique[choixLexique-1]);
+
+                printf("Fichier sauvegarde dans le lexique numero %d",choixLexique);
+
+                getchar();
                 break;
         }
     } while (choixMenu != '6');
 
 
     printf("\n\n*** FIN DU PROGRAMME ***\n");
-    */
+
 
     return 0;
 }
+
+
